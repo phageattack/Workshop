@@ -289,7 +289,7 @@ bowtie2-build  ./blastp/final_blastp_genes.fna  ./blastp/final_blastp_genes
 
 #ahora mapeamos las reads contra la base de datos
 
-bowtie2 --verbose -p 2 --sensitive --end-to-end --no-unal -x ./blastp/final_blastp_genes -1 ./trimed/Sample1_trimed1.fq -2 ./trimed/Sample1_trimed2.fq -S ./blastp/./blastp/final_blastp_genes.sam
+bowtie2 --verbose -p 2 --sensitive --end-to-end --no-unal -x ./blastp/final_blastp_genes -1 ./trimed/Sample1_trimed1.fq -2 ./trimed/Sample1_trimed2.fq -S ./blastp/final_blastp_genes.sam
 sed -i '1,5d' ./blastp/final_blastp_genes.sam #removemos las primeras 5 lineas que escribe bowtie
 
 ```

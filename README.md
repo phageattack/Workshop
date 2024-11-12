@@ -350,6 +350,5 @@ ComplexHeatmap::pheatmap(matrix1, name = "Log(TPM)")
 
 
 colours = colorRampPalette(c("lightyellow","orange1","red","purple4","black"),space="rgb")(100)
-colours2 = colorRamp2(seq(0, 15, by=0.5), colours)
 ComplexHeatmap::pheatmap(matrix1, name = "Log(TPM)", color = colours)
 ```

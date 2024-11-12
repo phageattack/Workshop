@@ -363,10 +363,10 @@ cut -f 1,2,5 final_blastp_genes_rpkm.txt |sed 's/#//g' > final_blastp_genes_rpkm
 rpkm <-read.table(file = "final_blastp_genes_rpkm_cut.txt", header = T)
 Sample_1 <-read.table(file = "final_blastp.txt", header = F)
 
-join1 <- merge(rpkm, Sample_1, by = 1, all.y =TRUE)
+join1 <- merge(rpkm, Sample_1, by = 1, all.x =TRUE)
 write.table(join1, file = "genes_per_sample.csv", sep = ",", row.names = F, col.names = T)
 # en bash 
-awk -F, 'BEGIN {OFS=","} {sub(/_[^_]*$/, "", $2); print}' genes_per_sample.csv > genes_per_sample_to_TPM.csv
+awk -F, -v OFS=',' '{sub(/_[^_]*$/, "", $4); print $1, $2, $3, $4}' genes_per_sample.csv > genes_per_sample_to_TPM.csv 
 # y calculamos los TPM en excel
  # volvemos a R
  TPM <- read.table("Sample1_TPM.csv", sep = ",", header = T)

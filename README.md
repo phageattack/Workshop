@@ -319,7 +319,7 @@ Ahora importaremos este el ultimo archivo de blastx en R para hacer la suma de l
 setwd("~/workshop_SGL/blastx_R/")
 
 
-length <-read.table(file = "./metabolic_concatenated_genes.length.tsv", header = T)
+length <-read.table(file = "metabolic_concatenated_genes.length.tsv", header = T)
 Sample_1 <-read.table(file = "Sample1.blastx_cut_filtered_sum.txt", header = F)
 
 join1 <- merge(length,Sample_1, by = 1, all.y =TRUE)

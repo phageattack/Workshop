@@ -358,7 +358,7 @@ setwd("~/workshop_SGL/blastp_R/")
 
 en bash vamos a preparar el archivo de RPKM para utilizarlo
 sed -i '1,4d' final_blastp_genes_rpkm.txt
-cut f1,2,5 final_blastp_genes_rpkm.txt > final_blastp_genes_rpkm_cut.txt
+cut -f 1,2,5 final_blastp_genes_rpkm.txt > final_blastp_genes_rpkm_cut.txt
 
 rpkm <-read.table(file = "final_blastp_genes_rpkm_cut.txt", header = T)
 Sample_1 <-read.table(file = "final_blastp.txt", header = F)

@@ -351,4 +351,46 @@ ComplexHeatmap::pheatmap(matrix1, name = "Log(TPM)")
 
 colours = colorRampPalette(c("lightyellow","orange1","red","purple4","black"),space="rgb")(100)
 ComplexHeatmap::pheatmap(matrix1, name = "Log(TPM)", color = colours)
+
+
+
+setwd("~/workshop_SGL/blastp_R/")
+
+en bash vamos a preparar el archivo de RPKM para utilizarlo
+sed -i '1,4d' final_blastp_genes_rpkm.txt
+cut f1,2,5 final_blastp_genes_rpkm.txt > final_blastp_genes_rpkm_cut.txt
+
+rpkm <-read.table(file = "final_blastp_genes_rpkm_cut.txt", header = T)
+Sample_1 <-read.table(file = "final_blastp.txt", header = F)
+
+join1 <- merge(rpkm, Sample_1, by = 1, all.y =TRUE)
+write.table(join1, file = "genes_per_sample.csv", sep = ",", row.names = F, col.names = T)
+# en bash 
+awk -F, 'BEGIN {OFS=","} {sub(/_[^_]*$/, "", $2); print}' genes_per_sample.csv > genes_per_sample_to_TPM.csv
+# y calculamos los TPM en excel
+ # volvemos a R
+ TPM <- read.table("Sample1_TPM.csv", sep = ",", header = T)
+
+library(dplyr)
+library(tidyverse)
+df_summed <- TPM %>%
+  group_by(gene) %>%
+  summarise(across(everything(), sum)) %>%
+  column_to_rownames("gene")
+write.csv(df_summed, file = "TPM_sumada.csv")
+
+
+
+log_TPM <- log1p(df_summed)
+
+library(ComplexHeatmap)
+
+
+matrix1 <- as.matrix(data.frame(log_TPM))
+ComplexHeatmap::pheatmap(matrix1, name = "Log(TPM)")
+
+
+colours = colorRampPalette(c("lightyellow","orange1","red","purple4","black"),space="rgb")(100)
+ComplexHeatmap::pheatmap(matrix1, name = "Log(TPM)", color = colours)
+
 ```
